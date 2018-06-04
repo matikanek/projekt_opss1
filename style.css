@@ -1,0 +1,10 @@
+body
+{
+	/* backgroud from subtle patterns.com */
+	background-image: url("img/gray.png");
+	color: #ffffff;
+	font-size: 28px;
+	font-family: 'Inconsolata', monospace;
+	font-weight: 700;
+}
+
