@@ -27,7 +27,13 @@
 	</div>
 	
 	<script>
-	
+	var wygrana = new Audio("drop.mp3");
+	var btn = document.querySelector('a');
+
+	btn.onmouseover = function()
+	{
+		wygrana.play();
+	}
 	</script>
 	
 </body>
