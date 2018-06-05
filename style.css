@@ -50,3 +50,44 @@ a:hover
 	border: 5px dashed #777700;
 }
 
+#pojemnik
+{
+	width: 1300px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 100px;
+}
+
+#plansza
+{
+	width: 1300px;
+	margin-top: 40px;
+	margin-bottom: 130px;
+	text-align: center;
+	font-size: 68px;
+	min-height: 72px;
+}
+
+#szubienica
+{
+	float: left;
+	width: 600px;
+	text-align: center;
+	min-height: 373px;			/* taką wysokość ma moje zdjęcie po to aby po chwili zmiany zdjęcia ten div mi nie skakał (chodzi o jego wysokość o której decyduje zawartość diva.. dlatego min jest = wysokości zdjęcia) */
+	-webkit-box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.54);
+	-moz-box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.54);
+	box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.54);
+	background-image: url("img/gray.png");
+}
+
+#alfabet
+{
+	float: left;
+	width: 600px;
+	text-align: center;
+	text-align: center;
+	font-size: 45px;
+	margin-left: 100px;
+}
+
