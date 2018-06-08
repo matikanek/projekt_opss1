@@ -2,6 +2,7 @@
 var haslo = "Wolnoć Tomku w swoim domku";		// tymczasowe haslo do odgadniecia
 var haslo1 = "";													// zmienna "czyszczaca" mi haslo
 var dlugosc = 0;													// zmienna wskazujaca na dlugosc hasla
+var ile_skuch = 0;													// zmienna liczaca skuchy
 
 
 function wypisz_haslo(){
@@ -100,6 +101,24 @@ function sprawdz(nr){
 		document.getElementById(element).style.color = "#c00000";
 		document.getElementById(element).style.border = "3px solid #c00000";
 		document.getElementById(element).style.cursor = "default";
-		
+		//skucha
+		ile_skuch++;
+		var obraz = "img/s"+ ile_skuch + ".jpg";
+		document.getElementById("szubienica").innerHTML = '<img src="'+obraz+'" alt="" />';		// na kazda skuche wyswietla sie odpowiedni fragment wisielca
+	}
+	
+	
+	//wygrana
+	if (haslo == haslo1)
+	{
+		ile_skuch = 0;
+		document.getElementById("alfabet").innerHTML  = "Hura!<br/>Podano prawidłowe hasło:<br/>"+haslo+'<br/><br/><span class="reset" onclick="start()">NOWE HASŁO!</span>';
+	}
+	
+	//przegrana
+	if(ile_skuch >= 9)
+	{
+		ile_skuch = 0;
+		document.getElementById("alfabet").innerHTML  = "Przegrana!<br/>Prawidłowe hasło to:<br/>"+haslo+'<br/><br/><span class="reset" onclick="start()">NOWE HASŁO!</span>';
 	}
 }

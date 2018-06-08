@@ -74,7 +74,7 @@ a:hover
 	float: left;
 	width: 600px;
 	text-align: center;
-	min-height: 373px;			/* taką wysokość ma moje zdjęcie po to aby po chwili zmiany zdjęcia ten div mi nie skakał (chodzi o jego wysokość o której decyduje zawartość diva.. dlatego min jest = wysokości zdjęcia) */
+	min-height: 373px;			/* taką wysokość ma moje zdjęcie po to aby po chwili zmiany zdjęcia ten div mi nie skakał (chodzi o jego wysokość o której decyduje zawartość diva.. dlatego min-height = wysokości zdjęcia) */
 	-webkit-box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.54);
 	-moz-box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.54);
 	box-shadow: 0px 0px 20px 8px rgba(0,0,0,0.54);
@@ -104,3 +104,14 @@ a:hover
 	border-radius: 15px;
 }
 
+.reset
+{
+	color: green;
+	cursor: pointer;
+	font-size: 48px;
+}
+
+.reset:hover
+{
+	color: black;
+}
