@@ -61,11 +61,45 @@ function start(){
 	
 	for(i=0; i<35; i++){
 		var element = "lit"+i;
-		tresc_diva = tresc_diva + '<div class="litera" id="'+element+'">'+litery[i]+'</div>';		// nadaje kazdej literce id lit(i) korzystając z utwożonej klasy w css "litera"
+		tresc_diva = tresc_diva + '<div class="litera" onclick="sprawdz('+i+')" id="'+element+'">'+litery[i]+'</div>';		// nadaje kazdej literce id lit(i) korzystając z utwożonej klasy w css "litera"
 		if((i+1) % 7 == 0) tresc_diva = tresc_diva + '<div style="clear:both;"></div>'				// co 7 liter zaczynam wypisywac je od nowego wiersza
 	}
 	
 	document.getElementById("alfabet").innerHTML = tresc_diva;		// po zebraniu liter zmienna tresc_diva zostaje wyswietlana na ekran 
 	
 	wypisz_haslo();				// funkdja wypisuaca haslo, wypisuje je
+}
+
+String.prototype.ustawZnak = function(miejsce, znak)
+{
+	return this.substr(0, miejsce) + znak + this.substr(miejsce+1);	// ta funkcja zwraca mi ciag znakow w moim hasle ktory widze na ekranie na podciąg znakow (substr) poczawszy od zerowej literki do miejsca w ktorym wystepuje trafiona literka (czyli mojego "i" w funkcji sprawdz.. nastepnie doklejam znak - czyli literke - moje litery[nr] w funkcji sprawdz a na koniec musze dopisac reszte hasla1 tyle że muszę już zacząć od mojego miejsca gdzie przerwałem o jeden większego 
+}
+
+function sprawdz(nr){
+	var trafiona = false;
+	
+	for(i=0; i<dlugosc; i++){	
+		if (haslo.charAt(i) == litery[nr]) // jezeli trafilem litere czyli jezeli znak z mojego hasla wystepuje w mojej latblicy liter o podanym parametrze "nr" ktory podalem na onclick to:
+		{
+			haslo1 = haslo1.ustawZnak(i, litery[nr]);	// wyglad mojego hasla na ekranie zamieni sie w to samo haslo ale dodatkowo jeszcze zmieni je funkcja typu object.prototype, która otrzymuje dwa parametry (numer litery w hasle poczawszy od poczatku, kliknieta litera)
+			trafiona = true;		// jezeli trafilem literke to ustawiam moja flage trafiona na wartosc "prawda"
+		}
+	}
+	
+	if(trafiona == true){		// w zaleznosci od tego czy trafilem literke mam odpowiedni jej wyglad 
+		var element = "lit" + nr;
+		document.getElementById(element).style.background = "#003300";
+		document.getElementById(element).style.color = "#00c000";
+		document.getElementById(element).style.border = "3px solid #00c000";
+		document.getElementById(element).style.cursor = "default";
+		wypisz_haslo();
+	}
+	else{
+		var element = "lit" + nr;
+		document.getElementById(element).style.background = "#330000";
+		document.getElementById(element).style.color = "#c00000";
+		document.getElementById(element).style.border = "3px solid #c00000";
+		document.getElementById(element).style.cursor = "default";
+		
+	}
 }
