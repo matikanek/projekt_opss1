@@ -201,7 +201,6 @@ function sprawdz(nr){
 	}
 	
 	if(trafiona == true){		// w zaleznosci od tego czy trafilem literke mam odpowiedni jej wyglad 
-		yes.play();
 		punkty = punkty + 2;
 		var element = "lit" + nr;
 		document.getElementById(element).style.background = "#003300";
@@ -211,9 +210,10 @@ function sprawdz(nr){
 		
 		document.getElementById(element).setAttribute("onclick", ";");		// funkcja "wyłączająca" mi atrybut onclick przy wybranej juz literce by nie naliczac lub odejmowac niepotrzebnie punkty przy ponownym jej kliknięciu 
 		wypisz_haslo();
+		if(haslo[los] != haslo1)					// dzieki temu unikne ponownego dzwieku przy wygranej (ostatnia literka wywola muzyke na wygrana rozgrywke
+			yes.play();
 	}
 	else{
-		no.play();
 		punkty = punkty - 1;
 		var element = "lit" + nr;
 		document.getElementById(element).style.background = "#330000";
@@ -227,6 +227,8 @@ function sprawdz(nr){
 		ile_skuch++;
 		var obraz = "img/s"+ ile_skuch + ".jpg";
 		document.getElementById("szubienica").innerHTML = '<img src="'+obraz+'" alt="" />';		// na kazda skuche wyswietla sie odpowiedni fragment wisielca
+		if(ile_skuch <9)								// podobnie jak w warunku na trafiona litekre powyzej
+			no.play();
 	}
 	document.getElementById('przebieg').innerHTML = "Ilość punktów: "+punkty+"&nbsp&nbsp&nbspEtap gry:"+runda+"/10";
 	
