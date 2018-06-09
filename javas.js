@@ -109,6 +109,13 @@ var ile_skuch = 0;													// zmienna liczaca skuchy
 var runda = 1;														// zmienna wskazujaca na ilosc rozegranych rund
 var punkty = 0;													// zmienna licząca punkty 
 
+//Dzwieki do odpowiednich ruchow w grze
+var yes = new Audio("okej.mp3");							// dzwiek na dobrze dobrana literke 				
+var no = new Audio("zle.mp3");							// dzwiek na zle dobrana literke
+var win = new Audio("wygrana.mp3");					// dziek na wygrana wygrana rozgrywke
+var lose = new Audio("przegrana.mp3");				// dzwiek na przegrana rozgrywke 
+var end = new Audio("koniec.mp3");						// dzwiek na konieck rozgrywki 
+
 function wypisz_haslo(){
 	document.getElementById("plansza").innerHTML = haslo1;		// funkcja wypisujaca aktualny stan hasla 
 }
@@ -194,6 +201,7 @@ function sprawdz(nr){
 	}
 	
 	if(trafiona == true){		// w zaleznosci od tego czy trafilem literke mam odpowiedni jej wyglad 
+		yes.play();
 		punkty = punkty + 2;
 		var element = "lit" + nr;
 		document.getElementById(element).style.background = "#003300";
@@ -205,6 +213,7 @@ function sprawdz(nr){
 		wypisz_haslo();
 	}
 	else{
+		no.play();
 		punkty = punkty - 1;
 		var element = "lit" + nr;
 		document.getElementById(element).style.background = "#330000";
@@ -225,18 +234,32 @@ function sprawdz(nr){
 	//wygrana
 	if (haslo[los] == haslo1)
 	{
+		win.play();
 		runda++;
 		punkty = punkty + 15;
 		ile_skuch = 0;
 		document.getElementById("alfabet").innerHTML  = "Hura!<br/>Podano prawidłowe hasło:<br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="start()">NOWE HASŁO!</span>';
+		if(runda > 1){
+			document.getElementById('alfabet').innerHTML = "Hura!<br/> Podano prawidłowe hasło: <br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="koniec()">PODSUMOWANIE</span>';
+		}
 	}
 	
 	//przegrana
 	if(ile_skuch >= 9)
 	{
+		lose.play();
 		runda++;
 		punkty = punkty - 10;
 		ile_skuch = 0;
 		document.getElementById("alfabet").innerHTML  = "Przegrana!<br/>Prawidłowe hasło to:<br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="start()">NOWE HASŁO!</span>';
+		if(runda > 1){
+			document.getElementById('alfabet').innerHTML = "Przegrana!<br/>Prawidłowe hasło to: <br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="koniec()">PODSUMOWANIE</span>';
+		}
 	}
+}
+
+function koniec(){
+	end.play();
+	document.getElementById('pojemnik').innerHTML = '<br/><br/><br/><br/><br/><span class="koniec">Koniec gry</span><br/><br/> Twoje punkty:<br/><span class="punkty">'+punkty+'</span><br/><br/><span class="reset" onclick="location.reload()">ZAGRAJ PONOWNIE</span>';
+	document.getElementById('przebieg').innerHTML = "";
 }
