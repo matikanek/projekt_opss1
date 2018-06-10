@@ -108,6 +108,7 @@ var dlugosc = 0;													// zmienna wskazujaca na dlugosc hasla
 var ile_skuch = 0;													// zmienna liczaca skuchy
 var runda = 1;														// zmienna wskazujaca na ilosc rozegranych rund
 var punkty = 0;													// zmienna licząca punkty 
+var ile_dobrych = 0;												// zmienna liczaca prawidlowe litery podane przez gracza
 
 //Dzwieki do odpowiednich ruchow w grze
 var yes = new Audio("okej.mp3");							// dzwiek na dobrze dobrana literke 				
@@ -115,6 +116,13 @@ var no = new Audio("zle.mp3");							// dzwiek na zle dobrana literke
 var win = new Audio("wygrana.mp3");					// dziek na wygrana wygrana rozgrywke
 var lose = new Audio("przegrana.mp3");				// dzwiek na przegrana rozgrywke 
 var end = new Audio("koniec.mp3");						// dzwiek na konieck rozgrywki 
+
+// zmienne do zmiany w zaleznosci od ochoty grajacego 
+var etap_gry = 1;					// ile chcesz zagrac rund
+var punkty_plus = 1;				// punkty za odgadnieta litere
+var punkty_minus = 1;			// punkty za zle podana litere
+var nagroda = 15;				// nagroda punktowa za wygrana
+var kara = 10;						// kara punktowa za przegrana
 
 function wypisz_haslo(){
 	document.getElementById("plansza").innerHTML = haslo1;		// funkcja wypisujaca aktualny stan hasla 
@@ -166,7 +174,7 @@ function start(){
 	haslo[los]= haslo[los].toUpperCase();		// zamiana liter w hasle na wielkie - UpperCase
 	dlugosc = haslo[los].length;				// zmiennej dlugosc przypisuje dlugosc hasla
 	document.getElementById("szubienica").innerHTML = '<img src="img/s0.jpg" />';
-	document.getElementById('przebieg').innerHTML = "Ilość punktów: "+punkty+"&nbsp&nbsp&nbspEtap gry:"+runda+"/10";		// wypisanie na dole etapu gry i ilosci punktow
+	document.getElementById('przebieg').innerHTML = "Ilość punktów: "+punkty+"&nbsp&nbsp&nbspEtap gry:"+runda+"/"+etap_gry;		// wypisanie na dole etapu gry i ilosci punktow
 	
 	for(i=0; i<dlugosc; i++){			
 		if(haslo[los].charAt(i) == " ") haslo1 = haslo1 + " ";			// prowizorycznie, badam kazdy znak hasla po kolei i jezeli jest przerwa pomiedzy slowami to dodaje przerwe
@@ -201,7 +209,8 @@ function sprawdz(nr){
 	}
 	
 	if(trafiona == true){		// w zaleznosci od tego czy trafilem literke mam odpowiedni jej wyglad 
-		punkty = punkty + 2;
+		ile_dobrych++;
+		punkty = punkty + punkty_plus;
 		var element = "lit" + nr;
 		document.getElementById(element).style.background = "#003300";
 		document.getElementById(element).style.color = "#00c000";
@@ -214,7 +223,7 @@ function sprawdz(nr){
 			yes.play();
 	}
 	else{
-		punkty = punkty - 1;
+		punkty = punkty - punkty_minus;
 		var element = "lit" + nr;
 		document.getElementById(element).style.background = "#330000";
 		document.getElementById(element).style.color = "#c00000";
@@ -230,18 +239,19 @@ function sprawdz(nr){
 		if(ile_skuch <9)								// podobnie jak w warunku na trafiona litekre powyzej
 			no.play();
 	}
-	document.getElementById('przebieg').innerHTML = "Ilość punktów: "+punkty+"&nbsp&nbsp&nbspEtap gry:"+runda+"/10";
+	document.getElementById('przebieg').innerHTML = "Ilość punktów: "+punkty+"&nbsp&nbsp&nbspEtap gry:"+runda+"/"+etap_gry;
 	
 	
 	//wygrana
 	if (haslo[los] == haslo1)
 	{
+		ile_dobrych = 0;
 		win.play();
 		runda++;
-		punkty = punkty + 15;
+		punkty = punkty + nagroda;
 		ile_skuch = 0;
 		document.getElementById("alfabet").innerHTML  = "Hura!<br/>Podano prawidłowe hasło:<br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="start()">NOWE HASŁO!</span>';
-		if(runda > 1){
+		if(runda > etap_gry){
 			document.getElementById('alfabet').innerHTML = "Hura!<br/> Podano prawidłowe hasło: <br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="koniec()">PODSUMOWANIE</span>';
 		}
 	}
@@ -249,12 +259,13 @@ function sprawdz(nr){
 	//przegrana
 	if(ile_skuch >= 9)
 	{
+		ile_dobrych = 0;
 		lose.play();
 		runda++;
-		punkty = punkty - 10;
+		punkty = punkty - kara;
 		ile_skuch = 0;
 		document.getElementById("alfabet").innerHTML  = "Przegrana!<br/>Prawidłowe hasło to:<br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="start()">NOWE HASŁO!</span>';
-		if(runda > 1){
+		if(runda > etap_gry){
 			document.getElementById('alfabet').innerHTML = "Przegrana!<br/>Prawidłowe hasło to: <br/>"+haslo[los]+'<br/><br/><span class="reset" onclick="koniec()">PODSUMOWANIE</span>';
 		}
 	}

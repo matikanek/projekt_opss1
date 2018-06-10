@@ -114,7 +114,7 @@ a:hover
 #przebieg
 {
 	width: 1300px;
-	margin-top: 60px;
+	margin-top: 30px;
 	text-align: right;
 	margin-left: auto;
 	margin-right: 370px;
@@ -129,4 +129,10 @@ a:hover
 .punkty
 {
 	font-size: 40px;
+}
+
+#postep
+{
+	margin-top: 40px;
+	background-color: #545b6e;
 }

@@ -17,7 +17,58 @@
 		<div id="alfabet"></div> 
 		<div style="clear:both;"></div>
 	</div>
+	<center>
+		<canvas id="postep" width="1400px" height="80px">Tu będzie widniał postęp gry</canvas>
+	</center>
 	<div id="przebieg"></div>
 	
+	<script>
+	
+		var can = document.querySelector('canvas');			
+		var context = can.getContext('2d');						// nadanie dwuwymiarowosci "can"
+		var k = new Kolko(27,40,25,"black",0,1);				//	deklaracja obiektu "Kolko"
+		var x = 0,y=0;
+	
+	function Kolko(x,y,r,color,vx,vy)								//	definicja objektu "Kolko"
+	{
+		this.x=x;
+		this.y=y;
+		this.r=r;
+		this.color=color;
+		this.vy=vy;
+		this.vx=vx;
+	}
+
+	Kolko.prototype.rysuj=function()								// rysowanie kolka
+	{	
+		context.beginPath();
+		context.arc(this.x, this.y, this.r, 0, 5 * Math.PI);
+		context.fillStyle="#545b6e";
+		context.fill();
+		context.stroke();
+	}
+
+	Kolko.prototype.next=function(dod)							// rysowanie kolejnej "klatki" dla kolka
+	{
+		if(this.x-1<=this.r){this.vx=-this.vx;}					// warunek brzegowy gdy odleglosc kolka od lewej krawedzi bedzie <= 0 
+		if(this.x+1>=1400 - this.r){this.vx=-this.vx}		// warunek brzegowy gdy odleglosc kolka od prawej krawedzie bedzie <= szerokosci canvasa
+		if(this.y-1<=this.r){this.vy=-this.vy}						// analogicznie dla skladowej "y"
+		if(this.y+1>=80 - this.r){this.vy=-this.vy}
+	
+		this.x+=this.vx;													// dystans "x" jest zwiekszany odpowiednio o predkosc vx
+		this.y+=this.vy;														// dystans "y" jest zwiekszany odpowiednio o predkosc vy
+	}
+
+	function petla()
+	{
+		context.fillRect(0,0,1400,80);								// rysowanie prostokata o wymiarach canvasa (dzieki temu kolko nie zamienia sie w "weza" ale jest taki cls
+		k.rysuj();																
+		k.next(ile_dobrych);												// przekazanie dodatkowego parametru predkosci do next
+		window.requestAnimationFrame(petla);					// metoda cyklicznie wywolujaca kod.. dokladniejsza od metod typu setTimeout, wywoluje dany kod przed kolejna klatka rysowania strony
+	}
+	
+	petla();																		// wywolanie petli 
+	
+	</script>
 </body>
 </html>
