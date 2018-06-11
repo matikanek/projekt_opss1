@@ -109,6 +109,7 @@ var ile_skuch = 0;													// zmienna liczaca skuchy
 var runda = 1;														// zmienna wskazujaca na ilosc rozegranych rund
 var punkty = 0;													// zmienna licząca punkty 
 var ile_dobrych = 0;												// zmienna liczaca prawidlowe litery podane przez gracza
+var ile = 0;
 
 //Dzwieki do odpowiednich ruchow w grze
 var yes = new Audio("okej.mp3");							// dzwiek na dobrze dobrana literke 				
@@ -194,6 +195,7 @@ function start(){
 
 String.prototype.ustawZnak = function(miejsce, znak)
 {
+	ile++;
 	return this.substr(0, miejsce) + znak + this.substr(miejsce+1);	// ta funkcja zwraca mi ciag znakow w moim hasle ktory widze na ekranie na podciąg znakow (substr) poczawszy od zerowej literki do miejsca w ktorym wystepuje trafiona literka (czyli mojego "i" w funkcji sprawdz.. nastepnie doklejam znak - czyli literke - moje litery[nr] w funkcji sprawdz a na koniec musze dopisac reszte hasla1 tyle że muszę już zacząć od mojego miejsca gdzie przerwałem o jeden większego 
 }
 
