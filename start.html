@@ -30,6 +30,8 @@
 		var x = 0,y=0;
 		var zm;
 		var pad = 1;															// pad jak padding odleglosc od krawedzi - dodanie zmiennej ma na celu komfort ogladania animacji
+		var szer;
+		var can_width = document.querySelector('canvas').width;
 	
 	function Kolko(x,y,r,color,vx,vy)								//	definicja objektu "Kolko"
 	{
@@ -50,12 +52,12 @@
 		context.stroke();
 	}
 
-	Kolko.prototype.next=function()							// rysowanie kolejnej "klatki" dla kolka
+	Kolko.prototype.next=function()								// rysowanie kolejnej "klatki" dla kolka
 	{
-		zm = Math.floor(1400*(ile/dlugosc));
-		if(this.x-pad<=this.r){this.vx=-this.vx;}					// warunek brzegowy gdy odleglosc kolka od lewej krawedzi bedzie <= 0 
+		zm = Math.floor(szer*(ile/dlugosc));
+		if(this.x-pad<=this.r){this.vx=-this.vx;}				// warunek brzegowy gdy odleglosc kolka od lewej krawedzi bedzie <= 0 
 		if(this.x+pad>=zm - this.r){this.vx=-this.vx}		// warunek brzegowy gdy odleglosc kolka od prawej krawedzie bedzie <= szerokosci canvasa
-		if(this.y-pad<=this.r){this.vy=-this.vy}						// analogicznie dla skladowej "y"
+		if(this.y-pad<=this.r){this.vy=-this.vy}					// analogicznie dla skladowej "y"
 		if(this.y+pad>=80 - this.r){this.vy=-this.vy}
 		
 		this.x+=this.vx;													// dystans "x" jest zwiekszany odpowiednio o predkosc vx
@@ -64,6 +66,10 @@
 
 	function petla()
 	{
+		szer = window.innerWidth;
+		can_width = Math.floor(szer*0.7);							// zapewnienie szerokosci canvasa w stosunku do wielkosci okna
+		can.style.width = can_width+"px";							
+		can.style.height = "80px";
 		context.fillRect(0,0,1400,80);								// rysowanie prostokata o wymiarach canvasa (dzieki temu kolko nie zamienia sie w "weza" ale jest taki cls
 		k.rysuj();																
 		k.next();																// przekazanie dodatkowego parametru predkosci do next
